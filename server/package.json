@@ -8,9 +8,6 @@
     "dev": "nodemon server/server.js",
     "build": "cd client && npm install && npm run build"
   },
-  "engines": {
-    "npm": "16.0.0"
-  },
   "author": "",
   "license": "ISC",
   "dependencies": {
