@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const { MongoClient, ObjectID } = require('mongodb')
 const listenToMetrics = require('./utils/ListenToMetrics')
@@ -6,6 +7,8 @@ require('dotenv/config')
 
 const app = express()
 const port = process.env.PORT || 3001
+
+// app.use(express.static(path.resolve(__dirname, '../client/public')))
 
 const connectionURL = process.env.DB_CONNECTION
 const databaseName = 'connext-analytics'
@@ -142,6 +145,10 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: 
         console.log('done')
     })
 }).catch((error) => console.log(error))
+
+// app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, '../client/build', 'index.html'));
+//   });
 
 app.listen(port, () => {
     console.log('Server is listening on port ' + port)
