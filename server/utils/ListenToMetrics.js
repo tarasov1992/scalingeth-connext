@@ -7,7 +7,7 @@ const listenToMetrics = async (callback) => {
     signer,
   })
   await messaging.connect()
-  console.log("CONNECTED")
+  console.log("Connected to NATS.")
   messaging.subscribe("*.*.metrics", (msg, err) => {
     if (err) {
       console.error("Uh oh: ", err)
