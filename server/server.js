@@ -30,11 +30,64 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: 
 
             db.collection('Liquidity').find().toArray().then(routers => {
                 let ethMainnetETH = 0
+                let ethMainnetUSDT = 0
+
+                let smartChainMainnetBNB = 0
+                let smartChainMainnetDAI = 0
+                let smartChainMainnetUSDT = 0
+                let smartChainMainnetUSDC = 0
+
+                let xDAIMainnetXDAI = 0
+                let xDAIMainnetUSDT = 0
+
+                let maticMainnetMATIC = 0
+                let maticMainnetDAI = 0
+                let maticMainnetUSDT = 0
+                let maticMainnetUSDC = 0
+                let maticMainnetwETHPOS = 0
+
+                let huobiMainnetHUSD = 0
         
                 routers.forEach(router => {
                     router.liquidity.forEach(liquidityObj => {
-                        if (liquidityObj.chainName === "Ethereum Mainnet" && liquidityObj.assetName === "ETH") {
-                            ethMainnetETH = ethMainnetETH + liquidityObj.liquidity
+                        if (liquidityObj.chainName === "Ethereum Mainnet") {
+                            if (liquidityObj.assetName === "ETH") {
+                                ethMainnetETH = ethMainnetETH + liquidityObj.liquidity
+                            } else if (liquidityObj.assetName === "USDT") {
+                                ethMainnetUSDT = ethMainnetUSDT + liquidityObj.liquidity
+                            }
+                        } else if (liquidityObj.chainName === "Binance Smart Chain Mainnet") {
+                            if (liquidityObj.assetName === "BNB") {
+                                smartChainMainnetBNB = smartChainMainnetBNB + liquidityObj.liquidity
+                            } else if (liquidityObj.assetName === "DAI") {
+                                smartChainMainnetDAI = smartChainMainnetDAI + liquidityObj.liquidity
+                            } else if (liquidityObj.assetName === "USDT") {
+                                smartChainMainnetUSDT = smartChainMainnetUSDT + liquidityObj.liquidity
+                            } else if (liquidityObj.assetName === "USDC") {
+                                smartChainMainnetUSDC = smartChainMainnetUSDC + liquidityObj.liquidity
+                            }
+                        } else if (liquidityObj.chainName === "xDAI Chain") {
+                            if (liquidityObj.assetName === "XDAI") {
+                                xDAIMainnetXDAI = xDAIMainnetXDAI + liquidityObj.liquidity
+                            } else if (liquidityObj.assetName === "USDT") {
+                                xDAIMainnetUSDT = xDAIMainnetUSDT + liquidityObj.liquidity
+                            }
+                        } else if (liquidityObj.chainName === "Matic Mainnet") {
+                            if (liquidityObj.assetName === "Token") {
+                                maticMainnetMATIC = maticMainnetMATIC + liquidityObj.liquidity
+                            } else if (liquidityObj.assetName === "USDT") {
+                                maticMainnetUSDT = maticMainnetUSDT + liquidityObj.liquidity
+                            } else if (liquidityObj.assetName === "USDC") {
+                                maticMainnetUSDC = maticMainnetUSDC + liquidityObj.liquidity
+                            } else if (liquidityObj.assetName === "WETH (PoS)") {
+                                maticMainnetwETHPOS = maticMainnetwETHPOS + liquidityObj.liquidity
+                            } else if (liquidityObj.assetName === "DAI") {
+                                maticMainnetDAI = maticMainnetDAI + liquidityObj.liquidity
+                            }
+                        } else if (liquidityObj.chainName === "Huobi ECO Chain Mainnet") {
+                            if (liquidityObj.assetName === "HUSD") {
+                                huobiMainnetHUSD = huobiMainnetHUSD + liquidityObj.liquidity
+                            }
                         }
                     })
                 })
@@ -43,7 +96,20 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true, useUnifiedTopology: 
                     _id: new ObjectID('6097ffdda27d1c57def86535')
                 }, {
                     $set: {
-                        ethMainnetETH
+                        ethMainnetETH,
+                        ethMainnetUSDT,
+                        smartChainMainnetBNB,
+                        smartChainMainnetDAI,
+                        smartChainMainnetUSDT,
+                        smartChainMainnetUSDC,
+                        xDAIMainnetXDAI,
+                        xDAIMainnetUSDT,
+                        maticMainnetMATIC,
+                        maticMainnetDAI,
+                        maticMainnetUSDT,
+                        maticMainnetUSDC,
+                        maticMainnetwETHPOS,
+                        huobiMainnetHUSD
                     }
                 })
             }).catch(err => console.log(err))
